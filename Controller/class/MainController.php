@@ -18,12 +18,12 @@ class MainController{
     }
 
     // la récupération de toutes les recettes dans le sytème.
-    public function plats()
+    public function classes()
     {
-       $request = $this->connexion->prepare("SELECT * FROM plats LIMIT 8");
+       $request = $this->connexion->prepare("SELECT * FROM classes");
         $request->execute();
-        $allPlats = $request->fetchAll(PDO::FETCH_ASSOC);
-       return $allPlats;
+        $classes = $request->fetchAll(PDO::FETCH_ASSOC);
+       return $classes;
     }
     // la récupération de toutes les recettes dans le sytème.
     public function platsAutres()
