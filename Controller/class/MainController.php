@@ -26,12 +26,12 @@ class MainController{
        return $classes;
     }
     // la récupération de toutes les recettes dans le sytème.
-    public function platsAutres()
+    public function options()
     {
-       $request = $this->connexion->prepare("SELECT * FROM plats limit 8,16");
+       $request = $this->connexion->prepare("SELECT * FROM options");
         $request->execute();
-        $allPlats = $request->fetchAll(PDO::FETCH_ASSOC);
-       return $allPlats;
+        $options = $request->fetchAll(PDO::FETCH_ASSOC);
+       return $options;
     }
 
     // la récupération de tous les utilisateurs.
