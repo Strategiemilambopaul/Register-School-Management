@@ -1,6 +1,6 @@
 <?php
 
-require "../class/MainController.php";
+require "../Controller/MainController.php";
 $user = new MainController();
 
 

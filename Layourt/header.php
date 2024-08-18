@@ -1,3 +1,8 @@
+<?php
+ if(session_status() === PHP_SESSION_NONE) session_start();
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,9 +49,9 @@
         <div class="row gx-0">
             <div class="col-lg-8 text-center text-lg-start mb-2 mb-lg-0">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
-                    <small class="me-3 text-light"><i class="fa fa-map-marker-alt me-2"></i>123 Street, New York, USA</small>
-                    <small class="me-3 text-light"><i class="fa fa-phone-alt me-2"></i>+012 345 6789</small>
-                    <small class="text-light"><i class="fa fa-envelope-open me-2"></i>info@example.com</small>
+                    <small class="me-3 text-light"><i class="fa fa-map-marker-alt me-2"></i>Congo, kinshasa/ Ligwala, croissement 24 N° 12</small>
+                    <small class="me-3 text-light"><i class="fa fa-phone-alt me-2"></i>+243 89 45 67 78</small>
+                    <small class="text-light"><i class="fa fa-envelope-open me-2"></i>School34@gmail.com</small>
                 </div>
             </div>
             <div class="col-lg-4 text-center text-lg-end">
@@ -67,36 +72,66 @@
     <div class="container-fluid position-relative p-0">
         <nav class="navbar navbar-expand-lg navbar-dark px-5 py-3 py-lg-0">
             <a href="index.php" class="navbar-brand p-0">
-                <h1 class="m-0"><i class="fa fa-user-tie me-2"></i>Startup</h1>
+                <h1 class="m-0"><i class="fa fa-school me-2"></i>Online Book</h1>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="fa fa-bars"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0">
-                    <a href="index.php" class="nav-item nav-link active">Home</a>
-                    <a href="about.php" class="nav-item nav-link">About</a>
-                    <a href="service.php" class="nav-item nav-link">Services</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Blog</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="blog.php" class="dropdown-item">Blog Grid</a>
-                            <a href="detail.php" class="dropdown-item">Blog Detail</a>
-                        </div>
-                    </div>
+                    <a href="index.php" class="nav-item nav-link active">Acceuil</a>
+                    <a href="about.php" class="nav-item nav-link">A propos</a>
+                    <a href="info.php" class="nav-item nav-link">Info</a>
+                    <?php if(!isset($_SESSION['user']['nom'])) :?>
+                        <a href="#" class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Inscription</a>
+                    <?php else:?>
+                        <a href="inscription.php" class="nav-item nav-link">Inscription</a>
+                    <?php endif?>
+                        
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
-                            <a href="price.php" class="dropdown-item">Pricing Plan</a>
-                            <a href="feature.php" class="dropdown-item">Our features</a>
-                            <a href="team.php" class="dropdown-item">Team Members</a>
-                            <a href="testimonial.php" class="dropdown-item">Testimonial</a>
-                            <a href="quote.php" class="dropdown-item">Free Quote</a>
+                            <a href="options.php" class="dropdown-item">Options</a>
+                            <a href="dashboard.php" class="dropdown-item">Dashboard</a>
+                            <a href="team.php" class="dropdown-item">Membres</a>
+                            <a href="proffesseurs.php" class="dropdown-item">Proffesseurs</a>
                         </div>
                     </div>
                     <a href="contact.php" class="nav-item nav-link">Contact</a>
                 </div>
-                <butaton type="button" class="btn text-primary ms-3" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fa fa-search"></i></butaton>
-                <a href="inscription.php" class="btn btn-primary py-2 px-4 ms-3">Inscription</a>
+                <?php if(isset($_SESSION) and isset($_SESSION['user']['nom'])) :?>
+                   <a href="inscription.php" class="btn btn-primary py-1 px-3 ms-3 mx-1">Bienvenu.e  <span class="fw-bold text-dark"><?= strtoupper($_SESSION['user']['nom'])?></span></a>
+
+                   <a href="logout.php" class="btn btn-danger text-small">Logout</a>
+
+                <?php else:?>
+                <a href="Auth/index.php" class="btn btn-primary py-2 px-4 ms-3">Se connecter</a>
+                <?php endif?>
             </div>
         </nav>
+
+
+        <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Information sur l'inscription de l'enfant</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Soyez le bienvenu sur notre site.
+        Afin, d'assurer la responsable d'inscription de votre enfant vous devez vous connecter dans le site pour avoir la possibilité de pouvoir inscrire votre enfant.
+        Votre authentification , nous permettra de vous contactez en cas de besoin ainsi avoir certaines informations à propos des résultats de l'enfant après son inscription, si il a été admis ou pas.
+        Merci, de vous <a href="Auth/index.php">connectez</a>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Compris</button>
+       
+      </div>
+    </div>
+  </div>
+</div>
