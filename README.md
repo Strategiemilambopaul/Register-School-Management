@@ -16,4 +16,9 @@ This project was built with different technologies so that we can handle this on
 # Advice 
 
 In the nustshell, if you want to bring a new benefit in this project, you must just have some skills in programmation and have a good level in sql (Structured query language) so that you can get our communication with the database because 80% of that depends on that.
-You can also, add some basic algorithms work's cause we did implement somes in our system.
+You can also, add some basic algorithms's knowledges cause we did implement somes in our system. Hense, you can learn that if you need to dig in this system and add an amazing function : 
+-   To add a register file after resgistering 
+-   To add an online test when student is admire in the school
+you could some and so on as well as you need.
+
+#Good luck 😊:  un 1 passant être un 1 est un 0 inconscient
