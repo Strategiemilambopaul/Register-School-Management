@@ -1,11 +1,14 @@
 <?php
-    require "Layourt/header.php";
+    if(session_status() === PHP_SESSION_NONE) session_start();
+
+ if(!isset($_SESSION) and !isset($_SESSION['user'])){
+    header('Location: Auth/index.php');
+}
+   
 
     require "Controller/MainController.php";
 
-    if(!isset($_SESSION) and !isset($_SESSION['user'])){
-      header('Location: Auth/index.php');
-    }
+    
 
     if(session_status() === PHP_SESSION_NONE) session_start();
 
@@ -21,9 +24,15 @@
     $request->contact($id_user,$subject,$content);
     }
 
-   
+    require "Layourt/header.php";
     
 ?>
+<style>
+    .bg-header {
+    background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7)), url(img/el3.jpg) center center no-repeat;
+    background-size: cover;
+}
+</style>
 
         <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
             <div class="row py-5">

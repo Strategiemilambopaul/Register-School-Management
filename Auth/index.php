@@ -3,6 +3,32 @@ if(session_status() === PHP_SESSION_NONE) session_start();
 
 ?>
 
+<style>
+    .body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(../img/el3.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.button {
+    background-color: #47a1f4;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.4s ease ease-in-out;
+}
+
+.button:hover {
+    background-color:  #47a1f4;
+}
+</style>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,18 +47,19 @@ if(session_status() === PHP_SESSION_NONE) session_start();
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="body">
     <div class="login-container">
         <?php if(isset($_SESSION['error'])):?>
-        <span style="background-color:#c66205; text-color:white; padding:10px; border-raduis:10px">  <?=$_SESSION['error']?></span>
+        <span style="background-color:#47a1f4; text-color:white; padding:10px; border-raduis:10px">  <?=$_SESSION['error']?></span>
        <?php endif ?>
-        <div class="login-form" id="loginForm">
+       
+       <div class="login-form" id="loginForm">
             <h1>Se connecter</h1>
             <div class="social-icons">
-                <a href="#" class="icon"><i class='bx bxl-google-plus'></i></a>
-                <a href="#" class="icon"><i class='bx bxl-facebook'></i></a>
-                <a href="#" class="icon"><i class='bx bxl-github'></i></a>
-                <a href="#" class="icon"><i class='bx bxl-linkedin'></i></a>
+                <a href="../index.php" class="icon" style="text-decoration: none">Acceuil</a> 
+                <a href="../team.php" class="icon" style="text-decoration: none">Equipe</a> 
+                <a href="../about.php" class="icon" style="text-decoration: none">A propos</a> 
+                
             </div>
 
             <div class="form-message-container">
@@ -42,19 +69,20 @@ if(session_status() === PHP_SESSION_NONE) session_start();
             <form action="process.php" method="post">
                 <input type="email" name="email" placeholder="Email" required >
                 <input type="password" name="password" placeholder="Mot de passe" required >
-                <button type="submit" name="login">Se connecter</button>
-                <a href="#">Mot de Passe Oublié?</a>
+                <button type="submit" name="login" class="button">Se connecter</button>
+                <!-- <a href="#">Mot de Passe Oublié?</a> -->
             </form>
-            <p>Vous n'avez pas de compte? <a href="#" id="showSignup">S'inscrire</a></p>
+            <p>Vous n'avez pas de compte? <a href="#signupForm" id="showSignup">S'inscrire</a></p>
         </div>
         <div class="signup-form hidden" id="signupForm">
             <h1>Créer un compte</h1>
             <div class="social-icons">
-                <a href="#" class="icon"><i class='bx bxl-google-plus'></i></a>
-                <a href="#" class="icon"><i class='bx bxl-facebook'></i></a>
-                <a href="#" class="icon"><i class='bx bxl-github'></i></a>
-                <a href="#" class="icon"><i class='bx bxl-linkedin'></i></a>
+                <a href="../index.php" class="icon" style="text-decoration: none">Acceuil</a> 
+                <a href="../team.php" class="icon" style="text-decoration: none">Equipe</a> 
+                <a href="../about.php" class="icon" style="text-decoration: none">A propos</a> 
+                
             </div>
+
             <div class="form-message-container">
                 <span>Utilisez votre email pour vous inscrire</span>
             </div>
@@ -63,9 +91,9 @@ if(session_status() === PHP_SESSION_NONE) session_start();
                 <input type="text" name="name" placeholder="Nom" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Mot de Passe" required>
-                <button type="submit" name="signup">S'inscrire</button>
+                <button type="submit" name="signup" class="button">S'inscrire</button>
             </form>
-            <p>Vous avez déjà un compte? <a href="#" id="showLogin">Se connecter</a></p>
+            <p>Vous avez déjà un compte? <a href="#" id="showLogin" >Se connecter</a></p>
         </div>
     </div>
     <script src="script.js"></script>

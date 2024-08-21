@@ -81,7 +81,9 @@
                 <div class="navbar-nav ms-auto py-0">
                     <a href="index.php" class="nav-item nav-link active">Acceuil</a>
                     <a href="about.php" class="nav-item nav-link">A propos</a>
+                    <?php if(isset($_SESSION) and isset($_SESSION['user']['nom'])) :?>
                     <a href="info.php" class="nav-item nav-link">Info</a>
+                    <?php endif?>
                     <?php if(!isset($_SESSION['user']['nom'])) :?>
                         <a href="#" class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal">Inscription</a>
                     <?php else:?>
@@ -92,12 +94,16 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                         <div class="dropdown-menu m-0">
                             <a href="options.php" class="dropdown-item">Options</a>
+                            <?php if(isset($_SESSION['user']['nom']) and $_SESSION['user']['statut']=="admin") :?>
                             <a href="dashboard.php" class="dropdown-item">Dashboard</a>
+                            <?php endif?>
                             <a href="team.php" class="dropdown-item">Membres</a>
                             <a href="proffesseurs.php" class="dropdown-item">Proffesseurs</a>
                         </div>
                     </div>
+                    <?php if(isset($_SESSION) and isset($_SESSION['user']['nom'])) :?>
                     <a href="contact.php" class="nav-item nav-link">Contact</a>
+                    <?php endif?>
                 </div>
                 <?php if(isset($_SESSION) and isset($_SESSION['user']['nom'])) :?>
                    <a href="inscription.php" class="btn btn-primary py-1 px-3 ms-3 mx-1">Bienvenu.e  <span class="fw-bold text-dark"><?= strtoupper($_SESSION['user']['nom'])?></span></a>

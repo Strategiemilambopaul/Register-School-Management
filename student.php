@@ -1,38 +1,77 @@
 <?php
-    require "Layourt/header.php";
-    require "Controller/MainController.php";
 
-    if(session_status() === PHP_SESSION_NONE) session_start();
-
+ 
+ 
+require "Controller/MainController.php";
+   
     $request = new MainController();
 
+    
     if(isset($_GET) and isset($_GET['eleve'])){
         $id = (int)$_GET['eleve'];
         $eleve = $request->eleveInformation($id);
         
        $documents = $request->getDocument($id);
+    }else{
+        header('Location: dashboard.php');
+    }
+    if(isset($_POST) and isset($_POST['id']))
+    {
+        $id=(int)$_POST['id'];
+        $result=$request->AdmireEleve($_POST['id']);
+    }
+    if(isset($_POST) and isset($_POST['del']))
+    {
+        $id=(int)$_POST['del'];
+        $resultDelete=$request->DeleteEleve($_POST['del']);
     }
    
-  
 
+    if(!$eleve){
+
+        header('Location: dashboard.php');
+    }
+    require "Layourt/header.php";
+   
+   
 ?>
+<style>
+    .bg-header {
+    background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7)), url(img/el3.jpg) center center no-repeat;
+    background-size: cover;
+}
+</style>
 
         <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
             <div class="row py-5">
                 <div class="col-12 pt-lg-5 mt-lg-5 text-center">
-                    <h1 class="display-4 text-white animated zoomIn">Blog Grid</h1>
-                    <a href="" class="h5 text-white">Home</a>
+                    <h1 class="display-4 text-white animated zoomIn">Panel Utilisateur</h1>
+                    <a href="index.php" class="h5 text-white">Acceuil</a>
                     <i class="far fa-circle text-white px-2"></i>
-                    <a href="" class="h5 text-white">Blog Grid</a>
+                    <a href="" class="h5 text-white">Utilisateur</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- Navbar End -->
-
+    <?php if(isset($result) and $result="valide"):?>
+       <center>
+       <span class=" btn btn-success py-2 px-2 w-50 text-white text-center fw-bold mb-2">
+            L'élève a été admis avec succès!😊
+        </span>
+       </center>
+    <?php endif ?>
+    <?php if(isset($resultDelete) and $resultDelete="annuler"):?>
+       <center>
+       <span class=" btn btn-danger py-2 px-2 w-50 text-white text-center fw-bold mb-2">
+            L'élève n'a pas  été admis au sein de l'établissement!😥
+        </span>
+       </center>
+    <?php endif ?>
 
   
-                        <div class="bg-primary">
+                        
+                            <div class="bg-primary">
                             <p class=" d-flex align-items-center text-light fw-bold justify-content-center rounded py-3" role="alert">
                                 INFORMATION SUR L'ELEVE VEUILLEZ CONSULTER LES DIFFERENTS DOCUMENTS FOURNIS.
                                <center> <hr class="w-50 text-center text-light"></center>
@@ -46,6 +85,63 @@
                             </p>
                         </center>
                         </div>
+                        <?php if($eleve['inscription']=="Null"):?>
+                        <div>
+                            <center>
+                            <a href="#" class='bg-success text-white rounded fw-bold py-1 px-1' data-bs-toggle="modal" data-bs-target="#exampleModalInfo"> Valide <i class="fa fa-check text-white"></i></a>  
+                            <a href="#" class='bg-danger text-white rounded fw-bold py-1 px-1' data-bs-toggle="modal" data-bs-target="#exampleModalDelete"> Annuler <i class="fa fa-trash text-white"></i></a>  
+                            </center>
+                        </div>
+                        <?php else :?>
+                            <center>
+                                <span class="bg-warning text-white rounded fw-bold py-1 px-1"> L'inscription de l'élève a déjà été <span class="text-dark fw-bold"><?= $eleve['inscription']?></span></span>
+
+                            </center>
+                        <?php endif?>
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Information de la validation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Avant de valider cette inscription rassurez-vous que toutes les informations sur l'élève sont correctes ainsi qu'il a eu à fournir tous les documents possibles.
+                                    D'où L'élève <span class="text-dark fw-bold"><?=$eleve['nom']?></span> est admis en classe de <span class="text-dark fw-bold"><?= $eleve['classe']?></span>
+                                </div>
+                                <div class="modal-footer">
+                                <a href="student.php?eleve=<?=$eleve['id']?>" class='bg-warning text-white rounded fw-bold py-2 px-2'>Revoir  <i class="far fa-eye text-white px-2"></i></a>
+                                    <form action="" method="POST">
+                                        <input type="hidden" name="id" value="<?=$eleve['id']?>">
+                                        <button type="submit" class="btn btn-primary">Admettre</button>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="modal fade" id="exampleModalDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Information Sur L'annulation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    En annulant cette inscription, l'élève ne poura pas être admis au sein de votre établissemnt. Voulez-vous annuler l'inscription
+                                    de l'élève <span class="text-dark fw-bold"><?=$eleve['nom']?></span> dans la classe de <span class="text-dark fw-bold"><?= $eleve['classe']?></span> ?
+                                </div>
+                                <div class="modal-footer">
+                                <a href="student.php?eleve=<?=$eleve['id']?>" class='bg-warning text-white rounded fw-bold py-2 px-2'>Revoir  <i class="far fa-eye text-white px-2"></i></a>
+                                    <form action="" method="POST">
+                                        
+                                        <input type="hidden" name="del" value="<?=$eleve['id']?>">
+                                        <button type="submit" class="btn btn-danger">Annuler</button>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
 
     <!-- Blog Start -->
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">

@@ -1,5 +1,5 @@
 <?php
-    require "Layourt/header.php";
+   
 
     require "Controller/MainController.php";
 
@@ -24,9 +24,15 @@
     if (!empty($_POST) and isset($_POST['doc'])){
       $request->insertDocuments();
     }
-   
+    require "Layourt/header.php";
     
 ?>
+<style>
+    .bg-header {
+    background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7)), url(img/el3.jpg) center center no-repeat;
+    background-size: cover;
+}
+</style>
 
         <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
             <div class="row py-5">

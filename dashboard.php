@@ -1,4 +1,9 @@
 <?php
+ if(session_status() === PHP_SESSION_NONE) session_start();
+    if($_SESSION['user']['statut']=="user") 
+    {
+        header("Location: index.php");
+    } 
     require "Layourt/header.php";
 
     require "Controller/MainController.php";
@@ -14,13 +19,20 @@
     {
         $eleves = $request->ElevesBySearch($_GET['search']);
     }
+    
 ?>
+<style>
+    .bg-header {
+    background: linear-gradient(rgba(9, 30, 62, .7), rgba(9, 30, 62, .7)), url(img/el3.jpg) center center no-repeat;
+    background-size: cover;
+}
+</style>
 
         <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
             <div class="row py-5">
                 <div class="col-12 pt-lg-5 mt-lg-5 text-center">
                     <h1 class="display-4 text-white animated zoomIn">Panel des controls</h1>
-                    <a href="index.php" class="h5 text-white">Acceuil</a>
+                    <a href="message.php" class="h5 text-white">Messages</a>
                     <i class="far fa-circle text-white px-2"></i>
                     <a href="#" class="h5 text-white">Dashboard</a>
                 </div>
@@ -50,7 +62,7 @@
     </div>
     <!-- Full Screen Search End -->
 
-
+   
     <!-- Features Start -->
     <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -130,12 +142,13 @@
                         <th scope="col">Genre</th>
                         <th scope="col">Nationalité</th>
                         <th scope="col">Voir plus.</th>
-                        <th scope="col">Inscription.</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Etat de l'Inscription.</th>
+                       
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($eleves as $k=>$eleve):?>
+                            
                         <tr>
                             <th scope="row"><?= $k + 1?></th>
                             <td><?= $eleve['nom']?></td>
@@ -145,35 +158,26 @@
                             <td><?= $eleve['genre']?></td>
                             <td><?= $eleve['nationalite']?></td>
                             <td><a href="student.php?eleve=<?=$eleve['id']?>" class='bg-primary text-white rounded fw-bold'>  <i class="far fa-eye text-white px-2"></i></a></td>
-                            <td><?= $eleve['inscription']?></td>
+                            
                             <td>
-                                <a href="" class='bg-success text-white rounded fw-bold py-1 px-1' data-bs-toggle="modal" data-bs-target="#exampleModalInfo"> Valide <i class="fa fa-check text-white"></i></a>  
-                                <a href="" class='bg-danger text-white rounded fw-bold py-1 px-1'> Annuler <i class="fa fa-trash text-white"></i></a>  
-                        </td>
+                                <?php if($eleve['inscription'] == "alider"):?>
+                                    <span class='bg-success text-white rounded fw-bold py-1 px-1' data-bs-toggle="modal" data-bs-target="#exampleModalInfo"> Valide <i class="fa fa-check text-white"></i></span>  
 
+                                <?php elseif($eleve['inscription'] =="Refuser"):?>
 
+                                    <span class='bg-danger text-white rounded fw-bold py-1 px-1' data-bs-toggle="modal" data-bs-target="#exampleModalDelete"> Annuler <i class="fa fa-trash text-white"></i></span>  
+                                <?php else:?>
+                                    <span  class='bg-warning text-white rounded fw-bold py-1 px-1' data-bs-toggle="modal" data-bs-target="#exampleModalDelete"> En attente ... <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span></span>  
+
+                                <?php endif?>
+                            </td>
+                            
+                           
                             
                         </tr>
 
-                        <!-- Modal -->
-                            <div class="modal fade" id="exampleModalInfo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Information de la validation</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    Avant de valider cette inscription rassurez-vous que toutes les informations sur l'élève sont correctes ainsi qu'il a eu à fournir tous les documents possibles.
-                                    D'où L'élève <span class="text-dark fw-bold"><?=$eleve['nom']?></span> est admis en classe de <span class="text-dark fw-bold"><?= $eleve['classe']?></span>
-                                </div>
-                                <div class="modal-footer">
-                                <a href="student.php?eleve=<?=$eleve['id']?>" class='bg-warning text-white rounded fw-bold py-2 px-2'>Revoir  <i class="far fa-eye text-white px-2"></i></a>
-                                    <button type="button" class="btn btn-primary">Admettre</button>
-                                </div>
-                                </div>
-                            </div>
-                            </div>
+                        
+                               
                         <?php endforeach?>
                        
                         

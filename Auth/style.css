@@ -10,7 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url(bgc.jpg) no-repeat;
+    background: url(../img/el2.jpg) no-repeat;
     background-size: cover;
     background-position: center;
 }
@@ -101,7 +101,7 @@ button:focus {
 }
 
 button {
-    background-color: #c66205;
+    background-color: #47a1f4;
     color: white;
     border: none;
     cursor: pointer;
@@ -109,7 +109,7 @@ button {
 }
 
 button:hover {
-    background-color: #c04b0c;
+    background-color:  #47a1f4;
 }
 
 /* Anchor tag styles */

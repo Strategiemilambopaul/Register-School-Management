@@ -13,6 +13,7 @@ class MainController{
     public function __construct()
     {
         $this->connexion = new PDO("mysql:host=$this->serveur;dbname=$this->database",$this->username,$this->password);
+        
 
 
     }
@@ -41,6 +42,14 @@ class MainController{
         $request->execute();
         $users = $request->fetchAll(PDO::FETCH_ASSOC);
        return $users;
+    }
+    // la récupération de tous les messages
+    public function allContacts()
+    {
+       $request = $this->connexion->prepare("SELECT u.nom as user, u.email as email,c.* FROM contacts as c inner join users as u on u.id=c.id_user");
+        $request->execute();
+        $contacts = $request->fetchAll(PDO::FETCH_ASSOC);
+       return $contacts;
     }
 
 
@@ -101,6 +110,7 @@ class MainController{
 
     
                 $_SESSION['user'] = $user;
+                $_SESSION['error'] = "";
                 
         
                 header("Location:"."../index.php");
@@ -114,27 +124,6 @@ class MainController{
         
     }
 
-
-    // la récupération de tous les plats
-    public function getPlat($id)
-    {
-        $request= $this->connexion->prepare('SELECT * FROM plats where id=:id');
-       $request->execute([
-        'id'=>$id
-       ]);
-       $plat = $request->fetch(PDO::FETCH_ASSOC);
-        return $plat;
-    }
-    // la récupération d'un utilisateur
-    public function getUser($id)
-    {
-        $request= $this->connexion->prepare('SELECT * FROM users where id=:id');
-       $request->execute([
-        'id'=>$id
-       ]);
-       $user = $request->fetch(PDO::FETCH_ASSOC);
-        return $user;
-    }
 
     // l'envoie d'un contact
     public function contact($iduser,$subject,$content)
@@ -162,49 +151,6 @@ class MainController{
            }
     }
 
-    // reserve une place
-    public function reserve($id_user,$id_plat,$content,$date,$time)
-    {
-        $request =$this->connexion->prepare("INSERT INTO reservations(id_user,id_plat,content,date,time) values (:id_user,:id_plat,:content,:date,:time)");
-        $reservation = $request->execute([
-            'id_user'=>$id_user,
-            'id_plat'=>$id_plat,
-            'content'=>$content,
-            'date'=>$date,
-            'time'=>$time
-        ]);
-
-        if($reservation){
-            session_start();
-
-            return $_SESSION['message'] = "Réservation placée avec succès";
-        }else{
-            return $_SESSION['message'] = "impossible de placée cette réservation avec succès";
-
-        }
-        
-    }
-
-    // Prendre les reservations
-    public function reservationPlaces()
-    {
-        $request = $this->connexion->prepare('SELECT distinct p.photo_path as photo_path,r.date as date, r.time as time, r.content as content,u.nom as user,p.nom as plat from reservations as r inner join users as u on r.id_user=u.id inner join plats as p on p.id=r.id_plat');
-
-        
-        $request->execute();
-        $userPlace = $request->fetchAll(PDO::FETCH_ASSOC);
-        return $userPlace;
-    }
-  
-    // prendre les appreciation 
-    public function appreciationsClient()
-    {
-        $request = $this->connexion->prepare("SELECT * FROM contacts as c inner join users as u on u.id = c.id_user");
-        $request->execute();
-        $comments = $request->fetchAll();
-
-        return $comments;
-    }
     //inscription
     public function inscription($form)
     {
@@ -377,6 +323,21 @@ class MainController{
             var_dump('error'.$e->getMessage());
         }
     }
+    public  function ContactBySearch($array)
+    {
+        $search = $array;
+        try{
+            $request = $this->connexion->prepare('SELECT * FROM contacts as c inner join users as u on u.id=c.id_user where e.nom LIKE :nom');
+            $request->execute([
+                'nom'=>'%'.$search.'%',
+            ]);
+           $contacts = $request->fetchAll(PDO::FETCH_ASSOC);
+           return $contacts;
+        }catch(PDOException $e)
+        {
+            var_dump('error'.$e->getMessage());
+        }
+    }
 
     public function getDocument($id_eleve)
     {
@@ -393,6 +354,43 @@ class MainController{
             var_dump($e->getMessage());
         }
     }
+    public function AdmireEleve($id_eleve)
+    {
+        $request = $this->connexion->prepare('UPDATE eleves SET inscription="valider" where id=:id');
+        $eleve = $request->execute([
+            'id'=>$id_eleve
+        ]);
+
+        if($eleve)
+        {
+            return 'valide';
+        }
+
+    }
+    public function DeleteEleve($id_eleve)
+    {
+        $request = $this->connexion->prepare('UPDATE eleves SET inscription="Refuser" where id=:id');
+        $eleve = $request->execute([
+            'id'=>$id_eleve
+        ]);
+
+        if($eleve)
+        {
+            return 'annuler';
+        }
+
+    }
+    public function getInformationByParent($id_user)
+    {
+        $request = $this->connexion->prepare('SELECT e.*,o.nom as options,c.nom as classe FROM eleves as e inner join classes as c on c.id=e.id_class inner join options as o on o.id=e.id_option where  e.users_id=:id and e.inscription IS NOT NULL');
+        $request->execute([
+            'id'=>$id_user,
+        ]);
+        $eleves = $request->fetchAll(PDO::FETCH_ASSOC);
+        return $eleves;
+
+    }
+
 }
 
 
