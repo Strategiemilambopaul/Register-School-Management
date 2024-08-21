@@ -8,7 +8,12 @@ The site contents differents parts or layourt such as :
 -   information panel which seems like a notice panel
 
 # Building
-This project was built with different technologies so that we can handle this one.
+This project was built with different technologies so that we can handle this one, in its entire functionnalities.
 - some html , css and js for the front-end
 - php (+ POO ) for building our system
 - sql (MYSQL) to connect our project to the database
+
+# Advice 
+
+In the nustshell, if you want to bring a new benefit in this project, you must just have some skills in programmation and have a good level in sql (Structured query language) so that you can get our communication with the database.
+You can also, add algorithms beviors's  cause we did implement somes in our system.
