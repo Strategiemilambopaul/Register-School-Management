@@ -1,5 +1,6 @@
 <?php
    
+   if(session_status() === PHP_SESSION_NONE) session_start();
 
     require "Controller/MainController.php";
 
@@ -7,7 +8,6 @@
       header('Location: Auth/index.php');
     }
 
-    if(session_status() === PHP_SESSION_NONE) session_start();
 
 
     $request = new MainController();
