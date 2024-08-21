@@ -172,12 +172,13 @@ class MainController{
         $responsable =$form['responsable'];
         $id_classe =(int)$form['classe'];
         $id_option =(int)$form['option'];
+        $users_id = (int)$_SESSION['user']['id'];
         
         
         try{
 
-            $request = $this->connexion->prepare("INSERT INTO eleves(nom,postnom,prenom,lieu_nais,date_nais,genre,nationalite,responsable,ancienne_ecole,certificat,tel,adresse,id_class,id_option)
-             VALUES (:nom,:postnom,:prenom,:lieu_nais,:date_nais,:genre,:nationalite,:responsable,:ancienne_ecole,:certificat,:tel,:adresse,:id_class,:id_option)");
+            $request = $this->connexion->prepare("INSERT INTO eleves(nom,postnom,prenom,lieu_nais,date_nais,genre,nationalite,responsable,ancienne_ecole,certificat,tel,adresse,id_class,id_option,users_id)
+             VALUES (:nom,:postnom,:prenom,:lieu_nais,:date_nais,:genre,:nationalite,:responsable,:ancienne_ecole,:certificat,:tel,:adresse,:id_class,:id_option,:users_id)");
             $request->execute([
                 'nom'=>$nom,
                 'postnom'=>$postnom,
@@ -192,7 +193,8 @@ class MainController{
                 'tel'=>$tel,
                 'adresse'=>$adresse,
                 'id_class'=>$id_classe,
-                'id_option'=>$id_option
+                'id_option'=>$id_option,
+                'users_id'=>$users_id
             ]);
             $_SESSION['eleve']=$this->connexion->lastInsertId();
           
