@@ -15,5 +15,5 @@ This project was built with different technologies so that we can handle this on
 
 # Advice 
 
-In the nustshell, if you want to bring a new benefit in this project, you must just have some skills in programmation and have a good level in sql (Structured query language) so that you can get our communication with the database.
-You can also, add algorithms beviors's  cause we did implement somes in our system.
+In the nustshell, if you want to bring a new benefit in this project, you must just have some skills in programmation and have a good level in sql (Structured query language) so that you can get our communication with the database because 80% of that depends on that.
+You can also, add some basic algorithms work's cause we did implement somes in our system.
