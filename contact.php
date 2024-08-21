@@ -20,7 +20,7 @@
     {   
       $id_user = $_POST['id'];
       $subject = $_POST['sujet'];
-      $content= $_POST['content'];
+      $result= $content= $_POST['content'];
     $request->contact($id_user,$subject,$content);
     }
 
@@ -46,7 +46,11 @@
         </div>
     </div>
     <!-- Navbar End -->
+    <?php if(isset($result) and $result==true):?>
+    <div class="text-center mt-2 mb-2">
+  <span class="fw-bold text-white bg-success text-center py-3 px-3 rounded">Votre message a été envoyé avec succès!😊</span>
 
+  </div><?php endif?>
 
     <!-- Full Screen Search Start -->
     <div class="modal fade" id="searchModal" tabindex="-1">

@@ -50,13 +50,13 @@
   
 <?php if(isset($_SESSION['eleve'])):?>
   <div class="text-center">
-  <span class="fw-bold text-white bg-success text-center py-3 px-3 rounded">Information envoyez avec succès😊. Nous vous tiendrons au courant du résultat par email, ou via le site après traitement des informations sur l'élève.</span>
+  <span class="fw-bold text-white bg-success text-center py-3 px-3 rounded">Information envoyée avec succès😊. Nous vous tiendrons au courant du résultat par email, ou via le site après traitement des informations sur l'élève.</span>
 
   </div>
 <?php endif?>
 <?php if(isset($_SESSION['info'])):?>
-  <div class="text-center">
-  <span class="fw-bold text-white bg-success text-center py-3 px-3 rounded">Information envoyez avec succès😊. Nous vous tiendrons au courant du résultat par email, ou via le site après traitement des informations sur l'élève.</span>
+  <div class="text-center mt-2 mb-2">
+  <span class="fw-bold text-white bg-success text-center py-3 px-3 rounded">Information envoyée avec succès😊. Nous vous tiendrons au courant du résultat par email, ou via le site après traitement des informations sur l'élève.</span>
 
   </div><?php endif?>
     <!-- Full Screen Search Start -->

@@ -160,7 +160,7 @@
                             <td><a href="student.php?eleve=<?=$eleve['id']?>" class='bg-primary text-white rounded fw-bold'>  <i class="far fa-eye text-white px-2"></i></a></td>
                             
                             <td>
-                                <?php if($eleve['inscription'] == "alider"):?>
+                                <?php if($eleve['inscription'] == "valider"):?>
                                     <span class='bg-success text-white rounded fw-bold py-1 px-1' data-bs-toggle="modal" data-bs-target="#exampleModalInfo"> Valide <i class="fa fa-check text-white"></i></span>  
 
                                 <?php elseif($eleve['inscription'] =="Refuser"):?>

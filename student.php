@@ -1,10 +1,13 @@
 <?php
 
- 
+if(session_status() === PHP_SESSION_NONE) session_start();
+
  
 require "Controller/MainController.php";
    
     $request = new MainController();
+
+    $documents = [];
 
     
     if(isset($_GET) and isset($_GET['eleve'])){
@@ -12,7 +15,8 @@ require "Controller/MainController.php";
         $eleve = $request->eleveInformation($id);
         
        $documents = $request->getDocument($id);
-    }else{
+    }
+    else{
         header('Location: dashboard.php');
     }
     if(isset($_POST) and isset($_POST['id']))
@@ -25,7 +29,7 @@ require "Controller/MainController.php";
         $id=(int)$_POST['del'];
         $resultDelete=$request->DeleteEleve($_POST['del']);
     }
-   
+    
 
     if(!$eleve){
 
@@ -85,7 +89,7 @@ require "Controller/MainController.php";
                             </p>
                         </center>
                         </div>
-                        <?php if($eleve['inscription']=="Null"):?>
+                        <?php if(is_null($eleve['inscription'])):?>
                         <div>
                             <center>
                             <a href="#" class='bg-success text-white rounded fw-bold py-1 px-1' data-bs-toggle="modal" data-bs-target="#exampleModalInfo"> Valide <i class="fa fa-check text-white"></i></a>  

@@ -303,7 +303,7 @@ class MainController{
     }
     public function eleveInformation($id_eleve)
     {
-        $request = $this->connexion->prepare('SELECT e.*,o.nom as options,c.nom as classe FROM eleves as e inner join options as o on o.id=e.id_option inner join classes as c on c.id=e.id_class inner join documents as d on d.id_eleve = e.id where e.id=:id');
+        $request = $this->connexion->prepare('SELECT e.*,o.nom as options,c.nom as classe FROM eleves as e inner join options as o on o.id=e.id_option inner join classes as c on c.id=e.id_class  where e.id=:id');
         $request->execute([
             'id'=>$id_eleve
         ]);
