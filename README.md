@@ -21,4 +21,4 @@ You can also, add some basic algorithms's knowledges cause we did implement some
 -   To add an online test when student is admire in the school
 you could some and so on as well as you need.
 
-#Good luck 😊:  A passerby being a 1 is a 0 unconscious
+#Good luck 😊:  `A passerby being a 1 is a 0 unconscious`
