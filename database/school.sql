@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 18, 2024 at 06:14 PM
+-- Generation Time: Aug 22, 2024 at 12:24 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.3.9
 
@@ -63,7 +63,9 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `id_user`, `suject`, `content`) VALUES
-(1, 1, 'inactif', 'l\'inactivité face à mes inscriptions');
+(1, 1, 'inactif', 'l\'inactivité face à mes inscriptions'),
+(2, 1, 'inactif', 'retard de suivie'),
+(3, 1, 'manque de suivis', 'je ne resois pas des réponses satisfaisantes');
 
 -- --------------------------------------------------------
 
@@ -112,9 +114,9 @@ CREATE TABLE `eleves` (
   `certificat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `tel` varchar(15) DEFAULT NULL,
   `adresse` text NOT NULL,
-  `inscription` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'Null',
+  `inscription` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `id_class` int NOT NULL,
-  `id_option` int NOT NULL,
+  `id_option` int DEFAULT NULL,
   `users_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -125,8 +127,9 @@ CREATE TABLE `eleves` (
 INSERT INTO `eleves` (`id`, `nom`, `postnom`, `prenom`, `lieu_nais`, `date_nais`, `genre`, `nationalite`, `responsable`, `ancienne_ecole`, `certificat`, `tel`, `adresse`, `inscription`, `id_class`, `id_option`, `users_id`) VALUES
 (1, 'paul_milambo', 'milambo', 'ian', 'Boènde', '2024-08-22', 'féminin', 'congolaise', 'père', 'Fides', '../certificats\\motiv.docx', '0894676466', 'Montngafula', 'Refuser', 6, 1, 1),
 (2, 'paul_milambo', 'milambo', 'ian', 'Boènde', '2024-08-22', 'féminin', 'congolaise', 'père', 'Malengo', '../certificats\\motiv.docx', '0894676466', 'Montngafula', NULL, 5, 1, 1),
-(3, 'paul_milambo', 'MUKANYA', 'JACKY', 'Boènde', '2024-08-23', 'masculin', 'rwandaise', 'père', 'Sonda', 'certificats\\motiv.docx', '0894676466', 'Montngafula', 'valider', 4, 2, 0),
-(4, 'KANIKI', 'LEMBE', 'ISAAC', 'KINSHASA', '2024-08-14', 'masculin', 'congolaise', 'père', 'MWAMBA', 'certificats\\file.pdf', '0973153229', 'Kilossa 68, commune de kinshasa', 'Refuser', 3, 1, 0);
+(3, 'paul_milambo', 'MUKANYA', 'JACKY', 'Boènde', '2024-08-23', 'masculin', 'rwandaise', 'père', 'Sonda', 'certificats\\motiv.docx', '0894676466', 'Montngafula', 'valider', 4, 2, 1),
+(4, 'KANIKI', 'LEMBE', 'ISAAC', 'KINSHASA', '2024-08-14', 'masculin', 'congolaise', 'père', 'MWAMBA', 'certificats\\file.pdf', '0973153229', 'Kilossa 68, commune de kinshasa', 'Refuser', 3, 1, 1),
+(8, 'Mambola', 'kalombo', 'JACKY', 'KINSHASA', '2010-01-26', 'féminin', 'rwandaise', 'mère', 'LOLONGA', 'certificats\\file (9).pdf', '0894896400', 'Montngafula', NULL, 1, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -165,7 +168,8 @@ CREATE TABLE `options` (
 INSERT INTO `options` (`id`, `nom`, `description`) VALUES
 (1, 'Scientifique ', 'L\'option scientifique est une filière qui prépare les élèves à des études et des carrières dans les domaines des sciences et de la technologie. Cette filière inclut des matières telles que les mathématiques, la physique, la chimie, la biologie, et parfois l’informatique.\r\n\r\nLes élèves qui choisissent cette filière acquièrent des compétences analytiques et pratiques qui leur permettent de poursuivre des études supérieures dans des domaines comme l’ingénierie, la médecine, les sciences naturelles, et les technologies de l’information. Ils peuvent également entrer directement sur le marché du travail dans des rôles techniques ou scientifiques.'),
 (2, 'Commerciale', 'La commerciale est une filière d’enseignement secondaire qui prépare les élèves à des carrières dans le domaine du commerce et de la gestion. Cette option inclut des matières telles que l’économie, la comptabilité, le marketing, la gestion des entreprises, et parfois des cours de droit commercial.\n\nLes élèves qui choisissent cette filière acquièrent des compétences pratiques et théoriques qui leur permettent de poursuivre des études supérieures dans des domaines connexes ou d’entrer directement sur le marché du travail dans des rôles administratifs, comptables, ou de gestion1.'),
-(3, 'Littéraire', 'La littéraire est une filière qui se concentre sur l’étude des lettres, des langues, et des sciences humaines. Les matières principales incluent la littérature, la philosophie, l’histoire, la géographie, et souvent des langues étrangères comme l’anglais ou l’espagnol.\r\n\r\nLes élèves qui choisissent cette filière développent des compétences en analyse critique, en rédaction, et en communication. Ils sont bien préparés pour poursuivre des études supérieures dans des domaines tels que les lettres, les sciences humaines, le journalisme, le droit, et l’enseignement.');
+(3, 'Littéraire', 'La littéraire est une filière qui se concentre sur l’étude des lettres, des langues, et des sciences humaines. Les matières principales incluent la littérature, la philosophie, l’histoire, la géographie, et souvent des langues étrangères comme l’anglais ou l’espagnol.\r\n\r\nLes élèves qui choisissent cette filière développent des compétences en analyse critique, en rédaction, et en communication. Ils sont bien préparés pour poursuivre des études supérieures dans des domaines tels que les lettres, les sciences humaines, le journalisme, le droit, et l’enseignement.'),
+(4, 'Humanitaire', 'le cycle est l\'initiation au choix de votre futire option');
 
 -- --------------------------------------------------------
 
@@ -186,7 +190,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `nom`, `email`, `password`, `statut`) VALUES
-(1, 'strategie', 'pmilambo@gmail.com', 'd827eb711dc0d40de2429833a9d9f349', 'user');
+(1, 'strategie', 'pmilambo@gmail.com', 'd827eb711dc0d40de2429833a9d9f349', 'admin'),
+(2, 'henri', 'pmilambo52@gmail.com', 'd827eb711dc0d40de2429833a9d9f349', 'user');
 
 --
 -- Indexes for dumped tables
@@ -250,7 +255,7 @@ ALTER TABLE `classes`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `documents`
@@ -262,7 +267,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `eleves`
 --
 ALTER TABLE `eleves`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `enseignant`
@@ -274,13 +279,13 @@ ALTER TABLE `enseignant`
 -- AUTO_INCREMENT for table `options`
 --
 ALTER TABLE `options`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
