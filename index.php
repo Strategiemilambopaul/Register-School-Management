@@ -85,7 +85,7 @@
                             </div>
                             <div class="ps-4">
                                 <h5 class="text-white mb-0">Formation proposée</h5>
-                                <h1 class="text-white mb-0" data-toggle="counter-up"><?= count($options)?></h1>
+                                <h1 class="text-white mb-0" data-toggle="counter-up"><?= count($options) - 1?></h1>
                             </div>
                         </div>
                     </a>

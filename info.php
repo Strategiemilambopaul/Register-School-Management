@@ -27,7 +27,7 @@
         <div class="container-fluid bg-primary py-5 bg-header" style="margin-bottom: 90px;">
             <div class="row py-5">
                 <div class="col-12 pt-lg-5 mt-lg-5 text-center">
-                    <h1 class="display-4 text-white animated zoomIn">A propos</h1>
+                    <h1 class="display-4 text-white animated zoomIn">Notification</h1>
                     <a href="index.php" class="h5 text-white">Acceuil</a>
                     <i class="far fa-circle text-white px-2"></i>
                     <a href="#" class="h5 text-white">Résultat</a>
@@ -37,7 +37,7 @@
     </div>
     <!-- Navbar End -->
 
-             <div class="bg-success">
+             <div class="bg-dark">
                             <p class=" d-flex align-items-center text-light fw-bold justify-content-center rounded py-3" role="alert">
                                 😊RESULTAT D'INSCRIPTION😊
                                <center> <hr class="w-50 text-center text-light"></center>
@@ -103,6 +103,14 @@
                     </tbody>
                    
                 </table>
+                <?php if(count($eleves)==0):?>
+                    
+                    <div class="text-center">
+                    <span class="fw-bold text-white bg-danger text-center py-3 px-3 rounded">Pas d'information pour l'instant</span>
+
+                    </div>
+                  
+                <?php endif?>
                         </div>
                         </center>
 

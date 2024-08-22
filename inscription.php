@@ -216,9 +216,11 @@
                         </div>
                         <div class="col-md-3">
                           <label for="validationDefault04" class="form-label">Option</label>
-                          <select class="form-select" name="option" id="validationDefault04" required>
-                            <option selected disabled>Option choisie</option>
+                          <select class="form-select" name="option" id="validationDefault04" >
+                            <option  value="4">Option choisie</option>
+                            
                             <?php foreach($options as $option):?>
+                              
                                <option value="<?=$option['id']?>"><?= $option['nom']?></option>
                             <?php endforeach?>
                           </select>

@@ -38,7 +38,7 @@ class MainController{
     // la récupération de tous les utilisateurs.
     public function allUsers()
     {
-       $request = $this->connexion->prepare("SELECT * FROM users");
+       $request = $this->connexion->prepare("SELECT * FROM users ORDER BY id DESC");
         $request->execute();
         $users = $request->fetchAll(PDO::FETCH_ASSOC);
        return $users;
@@ -46,7 +46,7 @@ class MainController{
     // la récupération de tous les messages
     public function allContacts()
     {
-       $request = $this->connexion->prepare("SELECT u.nom as user, u.email as email,c.* FROM contacts as c inner join users as u on u.id=c.id_user");
+       $request = $this->connexion->prepare("SELECT u.nom as user, u.email as email,c.* FROM contacts as c inner join users as u on u.id=c.id_user ORDER BY c.id DESC");
         $request->execute();
         $contacts = $request->fetchAll(PDO::FETCH_ASSOC);
        return $contacts;
@@ -291,7 +291,7 @@ class MainController{
     public function allEleves()
     {
         try{
-            $request = $this->connexion->prepare('SELECT e.*,o.nom as options,c.nom as classe FROM eleves as e inner join classes as c on c.id=e.id_class inner join options as o on o.id=e.id_option');
+            $request = $this->connexion->prepare('SELECT e.*,o.nom as options,c.nom as classe FROM eleves as e inner join classes as c on c.id=e.id_class inner join options as o on o.id=e.id_option ORDER BY e.id DESC');
             $request->execute();
            $elseInfo = $request->fetchAll(PDO::FETCH_ASSOC);
            return $elseInfo;

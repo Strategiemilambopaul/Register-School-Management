@@ -65,22 +65,24 @@
                 $img = ['sc.jpg','com.jpg','lit.jpg'];
                 $time = ['0.1s','0.4s','0.7s'];
                 foreach($options as $k => $option):?>
-                    
-                <div class="col-lg-4 wow slideInUp" data-wow-delay="<?=$time[$k]?>">
-                    <div class="bg-<?=$array[$k]?> rounded">
-                        <div class="border-bottom py-4 px-5 mb-4">
-                            <h4 class="text-primary mb-1"><?= $option['nom']?></h4>
-                            
+                    <?php if($k < 3):?>
+
+                        <div class="col-lg-4 wow slideInUp" data-wow-delay="<?=$time[$k]?>">
+                            <div class="bg-<?=$array[$k]?> rounded">
+                                <div class="border-bottom py-4 px-5 mb-4">
+                                    <h4 class="text-primary mb-1"><?= $option['nom']?></h4>
+                                    
+                                </div>
+                                <div class="p-5 pt-0">
+                                
+                                    <p>
+                                        <img src="img/<?=$img[$k]?>" alt="" class="rounded" height="250" width="200">
+                                    </p>
+                                    <a href="#option" class="btn btn-primary py-2 px-4 mt-4">Voir plus</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="p-5 pt-0">
-                           
-                            <p>
-                                <img src="img/<?=$img[$k]?>" alt="" class="rounded" height="250" width="200">
-                            </p>
-                            <a href="#option" class="btn btn-primary py-2 px-4 mt-4">Voir plus</a>
-                        </div>
-                    </div>
-                </div>
+                    <?php endif?>
                 <?php endforeach?>
                
             </div>
